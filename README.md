@@ -42,7 +42,7 @@ ImageNet
 | MobileNetV1 | Proposed | __71.52__ |
 
 ## Acknowledgments
-In this code we refer to the following implementations: [Overhaul](https://github.com/clovaai/overhaul-distillation)
+In this code we refer to the following implementations: [Overhaul](https://github.com/clovaai/overhaul-distillation). Great thanks to them.
 
 ## Reference
 

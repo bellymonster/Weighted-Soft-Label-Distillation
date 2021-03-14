@@ -26,7 +26,7 @@ __C.optim.if_resume=False
 __C.optim.resume_path=''
 
 __C.data=AttrDict()
-__C.data.data_path = 'PATH/TO/Imagenet-lmdb'
+__C.data.data_path = 'PATH/to/DataSet'
 __C.data.num_workers=32
 __C.data.batch_size=256
 __C.data.dataset='imagenet'

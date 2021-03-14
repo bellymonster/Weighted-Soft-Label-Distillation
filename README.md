@@ -1,7 +1,7 @@
 # Rethinking soft labels for knowledge distillation: a bias-variance tradeoff perspective
 Accepted by ICLR 2021
 
-This is the offical PyTorch implementation of paper "Rethinking soft labels for knowledge distillation: a bias-variance tradeoff perspective".
+This is the offical PyTorch implementation of paper [Rethinking soft labels for knowledge distillation: a bias-variance tradeoff perspective](https://arxiv.org/abs/2102.00650).
 
 ## Requirements
 + Python >= 3.6
@@ -20,3 +20,40 @@ python dataset/img2lmdb.py --image_path 'the path of your image data' --list_pat
 + train_with_distillation.py: train the model with our distillation method
 + imagenet_train_cfg.py: all dataset and hyperparameter settings
 + knowledge_distiller.py: our weighted soft label distillation loss
+
+## Results
+
+ImageNet
+
++ ResNet 18
+
+|   Network  |  Method  | mIOU |
+|:----------:|:--------:|:----------:|
+| ResNet 34 |  Teacher |    73.31   |
+| ResNet 18 | Original |    69.75   |
+| ResNet 18 | Proposed |    __72.04__   |
+
++ MobileNetV1
+
+|  Network  |  Method  |  mIOU |
+|:---------:|:--------:|:-----:|
+| ResNet 50 |  Teacher | 76.16 |
+| MobileNetV1 | Original | 68.87 |
+| MobileNetV1 | Proposed | __71.52__ |
+
+## Acknowledgments
+In this code we refer to the following implementations: [Overhaul](https://github.com/clovaai/overhaul-distillation)
+and [DenseNAS](https://github.com/JaminFong/DenseNAS). Great thanks to them.
+
+## Reference
+
+If you find this repo useful, please consider citing:
+
+```
+@inproceedings{zhou2021wsl,
+  title={Rethinking soft labels for knowledge distillation: a bias-variance tradeoff perspective},
+  author={Helong, Zhou and Liangchen, Song and Jiajie, Chen and Ye, Zhou and Guoli, Wang and Junsong, Yuan and Qian Zhang},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year={2021}
+}
+```

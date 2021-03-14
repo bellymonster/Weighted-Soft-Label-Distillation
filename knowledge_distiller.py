@@ -32,7 +32,7 @@ from tools import utils
 
 class WSLDistiller(nn.Module):
     def __init__(self, t_net, s_net):
-        super(Distiller, self).__init__()
+        super(WSLDistiller, self).__init__()
 
         self.t_net = t_net
         self.s_net = s_net

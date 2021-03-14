@@ -25,8 +25,8 @@ def main():
     if config.train_params.use_seed:
         utils.set_seed(config.train_params.seed)
 
-    imagenet = imagenet_data.ImageNet12(trainFolder=os.path.join(config.data.data_path, 'train_origin'),
-                                        testFolder=os.path.join(config.data.data_path, 'val_origin'),
+    imagenet = imagenet_data.ImageNet12(trainFolder=os.path.join(config.data.data_path, 'train'),
+                                        testFolder=os.path.join(config.data.data_path, 'val'),
                                         num_workers=config.data.num_workers,
                                         type_of_data_augmentation=config.data.type_of_data_aug,
                                         data_config=config.data)

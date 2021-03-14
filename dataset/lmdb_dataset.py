@@ -42,11 +42,9 @@ class DatasetFolder(data.Dataset):
         samples (list): List of (sample path, class_index) tuples
     """
 
-    def __init__(self, root, list_path, transform=None, target_transform=None, patch_dataset=False, is_sample=False):
+    def __init__(self, root, list_path, transform=None, target_transform=None, patch_dataset=False):
         self.root = root
         self.patch_dataset = patch_dataset
-        self.k = config.mimic.nce_k
-        self.is_sample = is_sample
 
         if patch_dataset:
             self.txn = []
@@ -74,28 +72,6 @@ class DatasetFolder(data.Dataset):
 
         if len(self.samples) == 0:
             raise (RuntimeError("Found 0 files in subfolders of: " + root + "\n"))
-
-        if self.is_sample:
-            num_classes = 1000
-            num_samples = len(self.samples)
-            cls_positive = {}
-            for i in range(num_samples):
-                serial_num = self.samples[i].split('/')[0]
-                if serial_num not in cls_positive:
-                    cls_positive[serial_num] = [i]
-                else:
-                    cls_positive[serial_num].append(i)
-
-            self.cls_negative = [[] for i in range(num_classes)]
-            num = 0
-            for i in cls_positive.keys():
-                for j in cls_positive.keys():
-                    if j == i:
-                        continue
-                    self.cls_negative[num].extend(cls_positive[j])
-                num += 1
-
-            self.cls_negative = [np.asarray(self.cls_negative[i], dtype=np.int32) for i in range(num_classes)]
 
         self.transform = transform
         self.target_transform = target_transform
@@ -132,15 +108,7 @@ class DatasetFolder(data.Dataset):
         if self.target_transform is not None:
             target = self.target_transform(target)
 
-        if self.is_sample:
-            pos_idx = index
-            neg_sample = self.cls_negative[target]
-            neg_idx = np.random.choice(neg_sample, self.k, replace=True)
-            sample_idx = np.hstack((np.asarray([pos_idx]), neg_idx))
-
-            return sample, target, index, sample_idx
-        else:
-            return sample, target
+        return sample, target
 
     def __len__(self):
         return len(self.samples)
@@ -160,6 +128,5 @@ class ImageFolder(DatasetFolder):
         super(ImageFolder, self).__init__(root, list_path,
                                           transform=transform,
                                           target_transform=target_transform,
-                                          patch_dataset=patch_dataset,
-                                          is_sample=is_sample)
+                                          patch_dataset=patch_dataset)
         self.imgs = self.samples

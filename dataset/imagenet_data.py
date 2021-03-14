@@ -63,10 +63,6 @@ class ImageNet12(object):
 
         train_transform = self._getTransformList(self.type_of_data_augmentation)
 
-        if config.mimic.type == 'CRD':
-            is_sample = True
-        else:
-            is_sample = False
 
         if self.data_config.train_data_type == 'img':
             train_set = torchvision.datasets.ImageFolder(self.trainFolder, train_transform)
@@ -74,8 +70,7 @@ class ImageNet12(object):
             train_set = lmdb_dataset.ImageFolder(self.trainFolder,
                                                  os.path.join(self.trainFolder, '..', 'train_datalist'),
                                                  train_transform,
-                                                 patch_dataset=self.patch_dataset,
-                                                 is_sample = is_sample
+                                                 patch_dataset=self.patch_dataset
                                                  )
         self.train_num_examples = train_set.__len__()
 

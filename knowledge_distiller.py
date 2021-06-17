@@ -70,7 +70,7 @@ class WSLDistiller(nn.Module):
         softmax_loss_s = - torch.sum(one_hot_label * log_softmax_s, 1, keepdim=True)
         softmax_loss_t = - torch.sum(one_hot_label * log_softmax_t, 1, keepdim=True)
 
-        focal_weight = softmax_loss_s / (softmax_loss_t)
+        focal_weight = softmax_loss_s / (softmax_loss_t + 1e-7)
         ratio_lower = torch.zeros(1).cuda()
         focal_weight = torch.max(focal_weight, ratio_lower)
         focal_weight = 1 - torch.exp(- focal_weight)
